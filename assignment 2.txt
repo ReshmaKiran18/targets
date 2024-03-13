@@ -1,0 +1,126 @@
+page.js
+
+"use client"
+import React from 'react';
+import Card from './components/Card';
+import Button from './components/Button';
+
+const App = () => {
+  return (
+    <div>
+      <h1>Sample React Application</h1>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Card
+          title="Example Card 1"
+          description="This is a sample card component with a button."
+          imageUrl="https://cdni.autocarindia.com/Utils/ImageResizer.ashx?n=https://cms.haymarketindia.net/model/uploads/modelimages/Mercedes-Benz-GLC-110820231043.jpg"
+        >
+          <Button text="Click me" onClick={() => alert('Button clicked!')} />
+        </Card>
+        <Card
+          title="Example Card 2"
+          description="This is another sample card component with a button."
+          imageUrl="https://imgd-ct.aeplcdn.com/664x415/n/cw/ec/129907/q3-right-front-three-quarter.jpeg"
+        >
+          <Button
+            text="Click me too"
+            onClick={() => alert('Another button clicked!')}
+            backgroundColor="#28a745"
+            hoverBackgroundColor="#218838"
+          />
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+export default App;
+
+Card.jsx
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const CardContainer = styled.div`
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px;
+  width: 300px;
+`;
+
+const CardTitle = styled.h2`
+  margin-bottom: 8px;
+`;
+
+const CardDescription = styled.p`
+  color: #666;
+`;
+
+const CardImage = styled.img`
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+`;
+
+const Card = ({ title, description, imageUrl }) => {
+  return (
+    <CardContainer>
+      <CardTitle>{title}</CardTitle>
+      {imageUrl && <CardImage src={imageUrl} alt={title} />}
+      <CardDescription>{description}</CardDescription>
+    </CardContainer>
+  );
+};
+
+Card.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string,
+};
+
+export default Card;
+
+Button.jsx
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const ButtonElement = styled.button`
+  background-color: ${(props) => props.backgroundColor || '#007bff'};
+  color: ${(props) => props.color || '#fff'};
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: ${(props) => props.hoverBackgroundColor || '#0056b3'};
+  }
+`;
+
+const Button = ({ onClick, text, backgroundColor, color, hoverBackgroundColor }) => {
+  return (
+    <ButtonElement
+      onClick={onClick}
+      backgroundColor={backgroundColor}
+      color={color}
+      hoverBackgroundColor={hoverBackgroundColor}
+    >
+      {text}
+    </ButtonElement>
+  );
+};
+
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  backgroundColor: PropTypes.string,
+  color: PropTypes.string,
+  hoverBackgroundColor: PropTypes.string,
+};
+
+export default Button;
